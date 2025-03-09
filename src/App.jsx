@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Navbar from './components/common/NavBar'
-
+import Card from './components/HomePage/Card'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -11,7 +11,7 @@ function App() {
     
     <>
     <Navbar></Navbar>
-      
+    {/* <Card></Card> */}
     </>
   )
 }
