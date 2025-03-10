@@ -20,8 +20,10 @@ const NotePractice = () => {
   useEffect(() => {
     audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
     analyzerRef.current = audioContextRef.current.createAnalyser();
-    analyzerRef.current.fftSize = 2048;
-    detectPitch.current = YIN({ sampleRate: audioContextRef.current.sampleRate });
+    analyzerRef.current.fftSize = 4096;
+    detectPitch.current = YIN({ sampleRate: audioContextRef.current.sampleRate,
+      threshold: 0.1,
+    });
   }, []);
   
   useEffect(() => {
@@ -41,7 +43,7 @@ const NotePractice = () => {
   useEffect(() => {
     if (isRunning && detectedNote && targetNote && detectedNote === targetNote) {
       const now = Date.now();
-      if (now - lastMatchTimeRef.current > 1000) { 
+      if (now - lastMatchTimeRef.current > 500) { 
         setCorrectCount(prev => prev + 1);
         generateNewTargetNote();
         lastMatchTimeRef.current = now;
@@ -60,7 +62,13 @@ const NotePractice = () => {
         await audioContextRef.current.resume();
       }
       
-      const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const audioStream = await navigator.mediaDevices.getUserMedia({ 
+        sampleRate: 44100,
+        channelCount: 1,
+        noiseSuppression: false,
+        autoGainControl: false,
+        audio: true,
+      });
       mediaStreamRef.current = audioStream;
       
       const source = audioContextRef.current.createMediaStreamSource(audioStream);
@@ -90,9 +98,9 @@ const NotePractice = () => {
       } // positive
       const rms = Math.sqrt(sum / buffer.length);
       //rms = percieved loudness of an audio dignal. the higher the louder it is. 
-      if(rms > 0.01){ //if the rms is higher than 0.01 it is sufficiently loud to be detected
+      if(rms > 0){ //if the rms is higher than 0.01 it is sufficiently loud to be detected
         const pitch = detectPitch.current(buffer);
-        if (pitch && pitch > 82 && pitch < 5000) { //supposedly the normal guitar freq range?
+        if (pitch && pitch > 0 && pitch < 8500) { //supposedly the normal guitar freq range?
           const note = frequencyToNote(pitch);
           setDetectedNote(note);
         }
@@ -111,7 +119,7 @@ const NotePractice = () => {
   const frequencyToNote = (frequency) => {
     const A4 = 440;
     const noteNum = 12 * (Math.log2(frequency / A4)) + 69;
-    return notes[Math.round(noteNum) % 12];
+    return notes[Math.floor(noteNum + 0.5) % 12];
   };
   
   const resetPractice = () => {
