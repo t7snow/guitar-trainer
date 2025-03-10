@@ -78,16 +78,26 @@ const NotePractice = () => {
   
   const detectPitchLoop = () => {
     const buffer = new Float32Array(analyzerRef.current.fftSize);
-    
+    //each number represents the amplitude of the sound wave at the sample point
     const detect = () => {
       if (!isRunningRef.current) return;
       
       analyzerRef.current.getFloatTimeDomainData(buffer);
-      const pitch = detectPitch.current(buffer);
-      
-      if (pitch) {
-        const note = frequencyToNote(pitch);
-        setDetectedNote(note);
+
+      let sum = 0;
+      for (let i = 0; i < buffer.length; i++) {
+        sum += buffer[i] * buffer[i];
+      } // positive
+      const rms = Math.sqrt(sum / buffer.length);
+      //rms = percieved loudness of an audio dignal. the higher the louder it is. 
+      if(rms > 0.01){ //if the rms is higher than 0.01 it is sufficiently loud to be detected
+        const pitch = detectPitch.current(buffer);
+        if (pitch && pitch > 82 && pitch < 5000) { //supposedly the normal guitar freq range?
+          const note = frequencyToNote(pitch);
+          setDetectedNote(note);
+        }
+      }else{
+        setDetectedNote('');
       }
       
       if (isRunningRef.current) {
@@ -151,7 +161,7 @@ const NotePractice = () => {
         </div>
         <div className="">
           <h2 className="text-2xl py-10 underline"> level 3 </h2>
-          <p className="max-w-2xl mx-45 text-center text-lg under">cover the entire fretboard and complete 5 minutes of this daily. start a streak 🔥</p>
+          <p className="max-w-2xl mx-45 text-center text-lg under">cover the entire fretboard and complete 5 minutes of this daily. start a streak</p>
         </div>
       </div>
   );
