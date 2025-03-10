@@ -72,7 +72,7 @@ const NotePractice = () => {
       generateNewTargetNote();
       detectPitchLoop();
     } catch (error) {
-      alert("Please allow microphone access!");
+      alert("allow mic");
     }
   }
   
@@ -119,7 +119,7 @@ const NotePractice = () => {
   
   return (
     <div className="text-center p-8">
-      <h1 className="text-3xl font-bold mb-4">Note Practice!</h1>
+      <h1 className="text-3xl font-bold mb-4">note practice</h1>
       <div className="space-y-4">
         <p className="text-2xl">target: {targetNote || "--"}</p>
         <p className="text-2xl">played: {detectedNote || "--"}</p>
@@ -129,19 +129,31 @@ const NotePractice = () => {
       <div className="mt-8 space-x-4">
         <button
           onClick={startPractice}
-          className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+          className="px-6 py-2 bg-green-300 text-white rounded-lg hover:bg-green-600"
           disabled={isRunning}
         >
           start
         </button>
         <button
           onClick={resetPractice}
-          className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+          className="px-6 py-2 bg-red-300 text-white rounded-lg hover:bg-red-600"
         >
           reset
         </button>
       </div>
-    </div>
+        <div className="">
+          <h2 className="text-2xl py-10 underline"> level 1 </h2>
+          <p className="max-w-2xl mx-45 text-center text-lg under">focus on the low E string only. we reccomend moving to level 2 when you can hit 50 with high accuracy</p>
+        </div>
+        <div className="">
+          <h2 className="text-2xl py-10 underline"> level 2 </h2>
+          <p className="max-w-2xl mx-45 text-center text-lg under">focus on sets of 3 frets until the entire fretboard is covered. again, focus on maximizing accuracy</p>
+        </div>
+        <div className="">
+          <h2 className="text-2xl py-10 underline"> level 3 </h2>
+          <p className="max-w-2xl mx-45 text-center text-lg under">cover the entire fretboard and complete 5 minutes of this daily. start a streak 🔥</p>
+        </div>
+      </div>
   );
 };
 
