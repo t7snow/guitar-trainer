@@ -1,0 +1,27 @@
+1. Real-Time Feedback & Tips
+
+    Accuracy Feedback: Show how close the played note is to the target (e.g., sharp, flat).
+    Timing Feedback: If playing along to a beat, highlight whether notes are early, late, or on time.
+    Visual Indicator: Display a waveform or tuner-style meter showing pitch stability.
+
+2. Scales & Exercises
+
+    Scale Trainer: Let users practice scales in different keys with guided note sequences.
+    Chord Progression Practice: Suggest and listen for common chord changes.
+    Speed Trainer: Increase tempo gradually for finger exercises.
+
+3. Song & Riff Learning
+
+    Riff Challenge: Play famous guitar riffs, detect accuracy, and provide progress feedback.
+    Backing Tracks: Add drum/bass loops for users to play along with.
+
+4. Customization & Progress Tracking
+
+    Personalized Goals: Let users choose difficulty levels or specific skills to practice.
+    Session Analytics: Show stats like accuracy percentage, played notes, and improvement over time.
+    Leaderboard: Friendly competition for high scores or streaks.
+
+5. Multiplayer & Challenges
+
+    Dueling Mode: Two players take turns playing a given note sequence.
+    Live Jam Feature: Connect users to improvise together using WebRTC.

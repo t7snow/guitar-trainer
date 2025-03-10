@@ -6,6 +6,7 @@ import Navbar from './components/common/NavBar'
 import Card from './components/HomePage/Card'
 import Timer from './components/NotePractice/Timer'
 import NoteFinder from './pages/NoteFinder/NoteFinder'
+import LearnHome from './pages/Learn/LearnHome'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/practice" element={<NoteFinder/>} />
+        <Route path="/learn" element={<LearnHome />} />
       </Routes>
     </Router>
   );
