@@ -98,10 +98,11 @@ const NotePractice = () => {
       } // positive
       const rms = Math.sqrt(sum / buffer.length);
       //rms = percieved loudness of an audio dignal. the higher the louder it is. 
-      if(rms > 0){ //if the rms is higher than 0.01 it is sufficiently loud to be detected
+      if(rms > 0.000001){ //if the rms is higher than 0.01 it is sufficiently loud to be detected
         const pitch = detectPitch.current(buffer);
-        if (pitch && pitch > 0 && pitch < 8500) { //supposedly the normal guitar freq range?
+        if (pitch && pitch > -100 && pitch < 9000) { //supposedly the normal guitar freq range?
           const note = frequencyToNote(pitch);
+          
           setDetectedNote(note);
         }
       }else{
